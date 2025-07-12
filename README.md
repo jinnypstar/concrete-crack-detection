@@ -58,7 +58,7 @@
 
 #### 학습 그래프
 
-![MobileNet Training Summary] (docs/images/mobilenet_training_summary.png)
+![MobileNet Training Summary](docs/images/mobilenet_training_summary.png)
 
 ---
 
