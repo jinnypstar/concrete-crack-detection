@@ -140,7 +140,14 @@ Conv Layer & 이진 분류용 레이어 수정 모델이 학습 초기에는 빠
     - FastAPI 서버가 이미지를 불러와 예측
     - positive/negative 결과를 반환
 
+---
 
+### 4. FastAPI 실행 및 데모 영상
+
+아래 GIF는 Google Colab 환경에서 ngrok를 이용해 FastAPI 서버를 실행하고,  
+사용자가 Crack 이미지 경로로 요청을 보내면 모델이 균열 여부를 예측해 응답하는 전체 과정을 보여줍니다.
+
+![FastAPI Demo](docs/images/구현영상_deep_learning_inference_fastapi.ipynb-Colab-Chrome.gif)
 
 
 
