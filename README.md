@@ -54,7 +54,90 @@
 - 그러나 Validation Loss에서 불안정하고 과적합 발생
 - 최종적으로 ResNet18이 더 안정적 성능을 보여 MobileNetV2는 사용하지 않음
 
-#### 학습 그래프 예시
+#### 학습 그래프
+
+![MobileNet Training Summary] (docs/images/mobilenet_training_summary.png)
+
+---
+
+### ResNet18 실험
+
+#### 이진 분류용 레이어 수정 모델
+
+- ImageNet 사전 학습 가중치 사용
+- 출력 레이어를 이진 분류용으로 수정
+- 최종 검증 정확도 약 99%
+- 학습과 검증 손실이 안정적으로 감소
+- 과적합 없이 높은 정확도 유지
+
+![ResNet Binary Layer Training Summary] (docs/images/resnet18_binary_layer_training_summary.png)
+
+---
+
+#### Conv Layer 및 이진 분류용 레이어 수정 모델
+
+- 첫 번재 Convolution Layer(kernel_size=3, stride=1, padding=1) 세부 조정
+- 초기 성능은 매우 우수
+- 그러나 8 epoch 이후 검증 손실이 급격히 증가
+- 과적합 발생 -> 검증 정확도 약 94%로 하락
+- 향후 개선 방안:
+  - Early Stopping
+  - Regularization 기법 적용
+
+![ResNet18 Conv & Binary Layer Training Summary] (docs/images/resnet18_conv_and_binary_layer_training_summary.png)
+
+---
+
+### 최종 결론
+Conv Layer & 이진 분류용 레이어 수정 모델이 학습 초기에는 빠르게 성능이 향상되었으나, **과적합 문제**로 최종 일반화 성능은 낮아짐. 기존의 이진 분류용 레이어 수정 모델이 더 **안정적인 성능**을 보여줌.
+
+---
+
+## Model Serving (FastAPI 활용)
+
+학습된 ResNet18 모델을 FastAPI를 이용해 서빙합니다.
+
+---
+
+### 1. 모델 서빙 구조
+
+- 구성 요소:
+  - Google Drive
+  - Google Colab
+  - FastAPI
+  - ngrok (HTTP 터널링)
+
+서빙 구조는 아래와 같습니다:
+
+![FastAPI Serving Flow](docs/images/fastapi_serving_flow.png)
+
+---
+
+### 2. 모델 서빙 과정
+
+1. Fine-tuned ResNet18 모델 가중치 로드
+2. Crack 이미지 파일 로드
+3. ResNet18 모델을 통해 Crack 여부(P/N) 예측
+4. 예측 결과를 HTTP Response로 사용자에게 반환
+
+---
+
+### 3. FastAPI 엔드포인트
+
+- '/imageai' 엔드포인트
+  - 이미지 파일과 이름을 HTTP 요청으로 받아 처리
+  - 모델이 예측한 결과를 JSON 형식으로 반환
+    예)
+    '''
+    {
+    "result": "이미지 인식 결과: 00623.jpg --> positive"
+    }
+    '''
+  - 사용자 요청 흐름
+    - 구글 드라이브의 이미지 이름 전달
+    - FastAPI 서버가 이미지를 불러와 예측
+    - positive/negative 결과를 반환
+
 
 
 
