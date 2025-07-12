@@ -36,11 +36,13 @@
 - Kaggle 원본 데이터셋에서 클래스별로 1,000장씩 샘플링하여 사용
 - 학습시간을 줄이고 실험 편의성을 높이기 위함
 - 폴더 구조:
-  '''
-  crack_1000/
-        ├── positive_1000/   # 균열 있음 이미지 1,000장
-        └── negative_1000/   # 균열 없음 이미지 1,000장
-  '''
+  ```
+  +---crack_1000/
+      +---Crawling
+          +---positive_1000/   # 균열 있음 이미지 1,000장
+          +---negative_1000/   # 균열 없음 이미지 1,000장
+  ```
+
 - 본 깃허브에는 이미지 파일이 포함되어 있지 않습니다. 위의 링크의 Kaggle에서 직접 다운로드하여 사용하세요.
 
 ---
@@ -70,7 +72,7 @@
 - 학습과 검증 손실이 안정적으로 감소
 - 과적합 없이 높은 정확도 유지
 
-![ResNet Binary Layer Training Summary] (docs/images/resnet18_binary_layer_training_summary.png)
+![ResNet Binary Layer Training Summary](docs/images/resnet18_binary_layer_training_summary.png)
 
 ---
 
@@ -84,7 +86,7 @@
   - Early Stopping
   - Regularization 기법 적용
 
-![ResNet18 Conv & Binary Layer Training Summary] (docs/images/resnet18_conv_and_binary_layer_training_summary.png)
+![ResNet18 Conv & Binary Layer Training Summary](docs/images/resnet18_conv_and_binary_layer_training_summary.png)
 
 ---
 
